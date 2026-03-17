@@ -589,6 +589,43 @@
       line-height: 1.55;
     }
 
+    /* ── CHAPTER QUOTES ── */
+    .chapter-quote {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin: 0 0 2rem;
+      padding: 1.1rem 1.4rem;
+      border-left: 3px solid var(--teal);
+      background: linear-gradient(90deg, rgba(0,224,176,.06) 0%, transparent 100%);
+      border-radius: 0 8px 8px 0;
+      position: relative;
+    }
+    .chapter-quote::before {
+      content: '\201C';
+      font-family: 'Syne', sans-serif;
+      font-size: 3.5rem;
+      line-height: .8;
+      color: var(--teal);
+      opacity: .35;
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+    .chapter-quote-body { display: flex; flex-direction: column; gap: .35rem; }
+    .chapter-quote-text {
+      font-style: italic;
+      font-size: .95rem;
+      color: var(--text);
+      line-height: 1.65;
+    }
+    .chapter-quote-author {
+      font-family: 'Fira Mono', monospace;
+      font-size: .75rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+
     /* ── COMPREHENSION CHECKS ── */
     .check-widget {
       margin: 2rem 0 0;
@@ -777,6 +814,12 @@
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="overview">
   <div class="container">
+    <div class="chapter-quote">
+      <div class="chapter-quote-body">
+        <span class="chapter-quote-text">A goal without a plan is just a wish.</span>
+        <span class="chapter-quote-author">— Antoine de Saint-Exupéry</span>
+      </div>
+    </div>
     <h2><span class="num">00</span> Aufbau auf einen Blick</h2>
     <p>Die folgende Tabelle zeigt den klassischen Aufbau einer wissenschaftlichen Arbeit. Jedes Kapitel hat eine klare Funktion – wer die Logik dahinter versteht, schreibt schneller und besser.</p>
     <table class="overview-table">
@@ -859,6 +902,12 @@
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="einleitung">
   <div class="container">
+    <div class="chapter-quote">
+      <div class="chapter-quote-body">
+        <span class="chapter-quote-text">Der Anfang ist die Hälfte des Ganzen.</span>
+        <span class="chapter-quote-author">— Aristoteles</span>
+      </div>
+    </div>
     <h2><span class="num">01</span> Einleitender Teil</h2>
 
     <h3>1.1 Aktualität – „Warum jetzt?"</h3>
@@ -891,6 +940,12 @@
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="literatur">
   <div class="container">
+    <div class="chapter-quote">
+      <div class="chapter-quote-body">
+        <span class="chapter-quote-text">If I have seen further, it is by standing on the shoulders of giants.</span>
+        <span class="chapter-quote-author">— Isaac Newton</span>
+      </div>
+    </div>
     <h2><span class="num">02</span> Literaturteil – Theoretische Grundlagen</h2>
 
     <p>Kapitel 2 ist kein Exzerpt von Quellen, sondern eine <strong>kritische Synthese</strong>. Deine Aufgabe: zeigen, dass du die relevante Literatur kennst, die verschiedenen Schulen verstehst und daraus einen für deine Arbeit geeigneten Rahmen ableiten kannst.</p>
@@ -938,6 +993,12 @@
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="ist">
   <div class="container">
+    <div class="chapter-quote">
+      <div class="chapter-quote-body">
+        <span class="chapter-quote-text">In God we trust; all others must bring data.</span>
+        <span class="chapter-quote-author">— W. Edwards Deming</span>
+      </div>
+    </div>
     <h2><span class="num">03</span> Ist-Situation</h2>
 
     <p>Kapitel 3 erdet die Theorie in der Realität. Hier beschreibst du den <strong>Status quo</strong> – und machst das Problem greifbar.</p>
@@ -986,6 +1047,12 @@
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="empfehlung">
   <div class="container">
+    <div class="chapter-quote">
+      <div class="chapter-quote-body">
+        <span class="chapter-quote-text">The greatest danger in times of turbulence is not the turbulence — it is to act with yesterday's logic.</span>
+        <span class="chapter-quote-author">— Peter Drucker</span>
+      </div>
+    </div>
     <h2><span class="num">04</span> Handlungsempfehlung – Kreativer Teil</h2>
 
     <p>Kapitel 4 ist dein eigentlicher Mehrwert. Hier verlässt du die Deskription und wirst zum <strong>Gestalter</strong>. Der „Berateransatz" bedeutet: Vorschläge machen, begründen und ihre Wirkung abschätzen.</p>
@@ -1029,6 +1096,12 @@
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="abschluss">
   <div class="container">
+    <div class="chapter-quote">
+      <div class="chapter-quote-body">
+        <span class="chapter-quote-text">What we call the beginning is often the end. And to make an end is to make a beginning.</span>
+        <span class="chapter-quote-author">— T. S. Eliot</span>
+      </div>
+    </div>
     <h2><span class="num">05</span> Abschließender Teil</h2>
 
     <h3>Fazit – mehr als eine Zusammenfassung</h3>
@@ -1064,6 +1137,12 @@
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="abstract">
   <div class="container">
+    <div class="chapter-quote">
+      <div class="chapter-quote-body">
+        <span class="chapter-quote-text">I would have written a shorter letter, but I did not have the time.</span>
+        <span class="chapter-quote-author">— Blaise Pascal</span>
+      </div>
+    </div>
     <h2><span class="num">06</span> Den Abstract richtig schreiben</h2>
 
     <p>Der Abstract ist das wichtigste Element des Papers – er entscheidet, ob jemand die Arbeit überhaupt liest. Typische Länge: <strong>150–250 Wörter</strong>. Schreib ihn als letztes, aber überarbeite ihn am sorgfältigsten.</p>
@@ -1115,6 +1194,12 @@
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="lit-review">
   <div class="container">
+    <div class="chapter-quote">
+      <div class="chapter-quote-body">
+        <span class="chapter-quote-text">Research is formalized curiosity. It is poking and prying with a purpose.</span>
+        <span class="chapter-quote-author">— Zora Neale Hurston</span>
+      </div>
+    </div>
     <h2><span class="num">07</span> Methoden der Literaturanalyse</h2>
 
     <p>Für Kapitel 2 ist eine <strong>explizit begründete Recherchestrategie</strong> entscheidend. Die folgende Tabelle zeigt die wichtigsten Ansätze aus der Forschungsliteratur und ihre Kernunterschiede.</p>
@@ -1210,6 +1295,12 @@
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="transformation">
   <div class="container">
+    <div class="chapter-quote">
+      <div class="chapter-quote-body">
+        <span class="chapter-quote-text">It is not the strongest of the species that survive, nor the most intelligent, but the one most responsive to change.</span>
+        <span class="chapter-quote-author">— Charles Darwin</span>
+      </div>
+    </div>
     <h2><span class="num">08</span> Phasenmodelle für Transformation</h2>
 
     <p>Wenn deine Arbeit Veränderungsvorhaben (Change Management, Digitalisierung, Prozessoptimierung) behandelt, sind strukturierte Phasenmodelle unverzichtbar – sowohl für die Theorie (Kap. 2) als auch für die Handlungsempfehlung (Kap. 4).</p>
@@ -1301,6 +1392,12 @@
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="reife">
   <div class="container">
+    <div class="chapter-quote">
+      <div class="chapter-quote-body">
+        <span class="chapter-quote-text">Perfection is not attainable, but if we chase perfection we can catch excellence.</span>
+        <span class="chapter-quote-author">— Vince Lombardi</span>
+      </div>
+    </div>
     <h2><span class="num">09</span> Reifegradmodelle – CMMI &amp; Co.</h2>
 
     <p>Reifegradmodelle bieten einen normativen Bezugspunkt: Sie beschreiben, wie „ausgereift" eine Organisation, ein Prozess oder eine Fähigkeit ist. In wissenschaftlichen Arbeiten dienen sie als <strong>Diagnoseinstrument</strong> (Ist-Situation, Kap. 3) und als <strong>Zielrahmen</strong> (Handlungsempfehlung, Kap. 4).</p>
@@ -1371,6 +1468,12 @@
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="checklist">
   <div class="container">
+    <div class="chapter-quote">
+      <div class="chapter-quote-body">
+        <span class="chapter-quote-text">For every minute spent organizing, an hour is earned.</span>
+        <span class="chapter-quote-author">— Benjamin Franklin</span>
+      </div>
+    </div>
     <h2><span class="num">10</span> Final Checklist – vor der Abgabe</h2>
     <p>Hake jeden Punkt ab, sobald er erledigt ist. Der Fortschrittsbalken zeigt dir, wie weit du in jedem Bereich bist.</p>
 
@@ -1486,6 +1589,12 @@
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="videos">
   <div class="container">
+    <div class="chapter-quote">
+      <div class="chapter-quote-body">
+        <span class="chapter-quote-text">Tell me and I forget. Teach me and I remember. Involve me and I learn.</span>
+        <span class="chapter-quote-author">— Benjamin Franklin</span>
+      </div>
+    </div>
     <h2><span class="num">11</span> Zusatztipps – Empfohlene Videos</h2>
     <p>Diese drei Videos ergänzen den Guide hervorragend und sind jeweils in unter 20 Minuten geschaut – hoher Nutzen, minimaler Zeitaufwand.</p>
 
