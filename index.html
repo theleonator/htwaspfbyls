@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How to Write a Scientific Paper – Fast | Leon Seelbach</title>
+  <title>HTWASP-F-BYLS</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg:          #0a0a0a;
       --bg-card:     #111111;
       --bg-card2:    #161616;
-      --teal:        #00e0b0;
-      --teal-light:  #33e8be;
-      --teal-pale:   rgba(0,224,176,.08);
-      --teal-dark:   #00ad88;
+      --teal:        #ff7a1a;
+      --teal-light:  #ff9a4d;
+      --teal-pale:   rgba(255,122,26,.08);
+      --teal-dark:   #e06000;
       --white:       #ffffff;
       --text:        #e8e8e8;
       --text-muted:  #999999;
-      --accent:      #ff9f58;
+      --accent:      #ff7a1a;
       --border:      #252525;
-      --border-teal: rgba(0,229,229,.25);
+      --border-teal: rgba(255,122,26,.28);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -92,8 +93,8 @@
         -45deg,
         transparent,
         transparent 28px,
-        rgba(0,224,176,.04) 28px,
-        rgba(0,224,176,.04) 29px
+        rgba(255,122,26,.04) 28px,
+        rgba(255,122,26,.04) 29px
       );
       z-index: 0;
     }
@@ -112,11 +113,26 @@
       transform: translateX(-50%);
       width: 600px;
       height: 300px;
-      background: radial-gradient(ellipse, rgba(0,224,176,.13) 0%, transparent 70%);
+      background: radial-gradient(ellipse, rgba(255,122,26,.13) 0%, transparent 70%);
       pointer-events: none;
       z-index: 1;
     }
     header h1, header p.byline { position: relative; z-index: 3; }
+    .header-avatar {
+      position: relative;
+      z-index: 3;
+      margin-top: 1.4rem;
+      display: inline-block;
+    }
+    .header-avatar img {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      border: 3px solid var(--teal);
+      box-shadow: 0 0 22px rgba(255,122,26,.45), 0 0 6px rgba(255,122,26,.2);
+      object-fit: cover;
+      display: block;
+    }
     header h1 {
       font-family: 'Syne', sans-serif;
       font-size: clamp(1.9rem, 5vw, 3.2rem);
@@ -126,7 +142,7 @@
       position: relative;
       letter-spacing: -.01em;
     }
-    header h1 em { font-style: italic; color: var(--teal); text-shadow: 0 0 30px rgba(0,224,176,.55); font-weight: 700; }
+    header h1 em { font-style: italic; color: var(--teal); text-shadow: 0 0 30px rgba(255,122,26,.55); font-weight: 700; }
     header p.byline {
       font-family: 'Syne', sans-serif;
       font-size: clamp(1rem, 2.2vw, 1.4rem);
@@ -149,7 +165,7 @@
       font-size: 1.7rem;
       font-weight: 700;
       color: var(--teal);
-      text-shadow: 0 0 24px rgba(0,224,176,.3);
+      text-shadow: 0 0 24px rgba(255,122,26,.3);
       margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
@@ -280,7 +296,7 @@
       overflow: hidden;
     }
     .method-table th {
-      background: #0d2e2e;
+      background: #2a1200;
       color: var(--teal);
       padding: .7rem 1rem;
       text-align: left;
@@ -346,11 +362,11 @@
     .mat-level .desc { font-size: .75rem; margin-top: .25rem; }
     .mat-1 { background: #161616; border: 1px solid #333; color: var(--text-muted); }
     .mat-1 .desc { color: #666; }
-    .mat-2 { background: #0a1f1f; border: 1px solid rgba(0,229,229,.2); color: var(--text); }
+    .mat-2 { background: #1a0d00; border: 1px solid rgba(255,122,26,.2); color: var(--text); }
     .mat-2 .desc { color: var(--text-muted); }
-    .mat-3 { background: #0d2b2b; border: 1px solid rgba(0,229,229,.4); color: var(--white); }
+    .mat-3 { background: #1f1000; border: 1px solid rgba(255,122,26,.4); color: var(--white); }
     .mat-3 .desc { color: rgba(255,255,255,.7); }
-    .mat-4 { background: #0e3535; border: 1px solid var(--teal-dark); color: var(--teal-light); }
+    .mat-4 { background: #251200; border: 1px solid var(--teal-dark); color: var(--teal-light); }
     .mat-4 .desc { color: rgba(255,255,255,.75); }
     .mat-5 { background: var(--teal); border: 1px solid var(--teal-light); color: #000; }
     .mat-5 .lv { color: #000; }
@@ -558,7 +574,7 @@
     .yt-facade:hover .yt-play { transform: scale(1.1); }
     /* Placeholder card */
     .yt-facade--placeholder {
-      background: #0d1f1a;
+      background: #1a1000;
       flex-direction: column;
       gap: .5rem;
     }
@@ -607,7 +623,7 @@
       margin: 0 0 2rem;
       padding: 1.1rem 1.4rem;
       border-left: 3px solid var(--teal);
-      background: linear-gradient(90deg, rgba(0,224,176,.06) 0%, transparent 100%);
+      background: linear-gradient(90deg, rgba(255,122,26,.06) 0%, transparent 100%);
       border-radius: 0 8px 8px 0;
       position: relative;
     }
@@ -680,7 +696,7 @@
       background: var(--teal);
       color: #000;
     }
-    .check-btn-yes:hover { box-shadow: 0 0 14px rgba(0,224,176,.5); }
+    .check-btn-yes:hover { box-shadow: 0 0 14px rgba(255,122,26,.5); }
     .check-btn-no {
       background: var(--bg-card2);
       color: var(--text);
@@ -755,6 +771,9 @@
   <div class="header-glow"></div>
   <h1>How to Write a Scientific Paper<br/><em>– fast –</em></h1>
   <p class="byline">by Leon Seelbach</p>
+  <div class="header-avatar">
+    <img src="LS_Comic.png" alt="Leon Seelbach" />
+  </div>
 </header>
 
 <script>
@@ -805,9 +824,9 @@
 
       // draw particle as soft circle
       const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 2.2);
-      grad.addColorStop(0,   `rgba(0,224,176,${p.alpha})`);
-      grad.addColorStop(0.5, `rgba(0,200,160,${p.alpha * 0.5})`);
-      grad.addColorStop(1,   `rgba(0,180,140,0)`);
+      grad.addColorStop(0,   `rgba(255,122,26,${p.alpha})`);
+      grad.addColorStop(0.5, `rgba(230,90,0,${p.alpha * 0.5})`);
+      grad.addColorStop(1,   `rgba(200,70,0,0)`);
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r * 2.2, 0, Math.PI * 2);
@@ -1579,7 +1598,7 @@
       const fill = document.getElementById('bar-' + group);
       if (pct === 100) {
         fill.style.background = 'var(--teal)';
-        fill.style.boxShadow = '0 0 10px rgba(0,224,176,.6)';
+        fill.style.boxShadow = '0 0 10px rgba(255,122,26,.6)';
       } else if (pct >= 60) {
         fill.style.background = 'linear-gradient(90deg, var(--teal-dark), var(--teal))';
         fill.style.boxShadow = 'none';
@@ -1808,7 +1827,7 @@ function launchConfetti() {
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  const colors = ['#00e0b0','#33e8be','#ffffff','#ff9f58','#ffe066','#a78bfa'];
+  const colors = ['#ff7a1a','#ff9a4d','#ffffff','#ff9f58','#ffe066','#a78bfa'];
   const pieces = Array.from({length: 120}, () => ({
     x: Math.random() * canvas.width,
     y: -10 - Math.random() * 40,
@@ -1848,7 +1867,7 @@ function launchFireworks() {
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  const colors = ['#00e0b0','#ff9f58','#ffe066','#a78bfa','#ffffff','#33e8be'];
+  const colors = ['#ff7a1a','#ff9f58','#ffe066','#a78bfa','#ffffff','#ff9a4d'];
   let bursts = [];
   for (let b = 0; b < 5; b++) {
     setTimeout(() => {
@@ -1893,7 +1912,7 @@ function launchLevelBars(origin) {
     el.textContent = bar;
     el.style.cssText = `
       position:fixed; left:${rect.left + rect.width/2 - 30}px;
-      top:${rect.top - 20 - i * 28}px; color: var(--teal,#00e0b0);
+      top:${rect.top - 20 - i * 28}px; color: var(--teal,#ff7a1a);
       font-size:.85rem; font-family:monospace; z-index:10000;
       opacity:0; pointer-events:none;
       transition: opacity .3s, transform .4s;`;
