@@ -1,1 +1,963 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Write a Scientific Paper – Fast | Leon Seelbach</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:       #f7f3ea;
+      --cream-dark:  #ede8da;
+      --cream-mid:   #f2ece0;
+      --teal:        #2a8c8c;
+      --teal-light:  #3db5b5;
+      --teal-pale:   #d0eeee;
+      --teal-dark:   #1c6666;
+      --ink:         #2b2b2b;
+      --ink-soft:    #4a4a4a;
+      --ink-muted:   #7a7a7a;
+      --accent:      #c4854a;
+      --border:      #d4cfc3;
+    }
 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--cream-dark);
+      border-bottom: 2px solid var(--teal);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a {
+      display: block;
+      padding: .75rem 1.1rem;
+      color: var(--ink-soft);
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color .2s, border-color .2s;
+    }
+    nav a:hover { color: var(--teal); border-color: var(--teal); }
+
+    /* ── HERO ── */
+    header {
+      background: var(--teal-dark);
+      color: var(--cream);
+      padding: 4rem 2rem 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 28px,
+        rgba(255,255,255,.03) 28px,
+        rgba(255,255,255,.03) 29px
+      );
+    }
+    header .badge {
+      display: inline-block;
+      background: var(--teal-light);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: .3rem .9rem;
+      border-radius: 2px;
+      margin-bottom: 1.2rem;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 5vw, 3.2rem);
+      line-height: 1.2;
+      margin-bottom: .6rem;
+    }
+    header h1 em { font-style: italic; color: var(--teal-light); }
+    header p.sub {
+      font-size: 1rem;
+      opacity: .75;
+      margin-top: .4rem;
+      font-weight: 300;
+    }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+
+    section { padding: 3.5rem 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      color: var(--teal-dark);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+    }
+    h2 .num {
+      background: var(--teal);
+      color: #fff;
+      font-family: 'Fira Mono', monospace;
+      font-size: .85rem;
+      padding: .2rem .55rem;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--ink);
+      margin: 1.6rem 0 .5rem;
+    }
+
+    p { margin-bottom: .9rem; color: var(--ink-soft); }
+
+    /* ── OVERVIEW TABLE ── */
+    .overview-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .93rem;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .overview-table thead tr {
+      background: var(--teal);
+      color: #fff;
+    }
+    .overview-table thead th {
+      padding: .85rem 1.2rem;
+      text-align: left;
+      font-weight: 700;
+      letter-spacing: .04em;
+      font-size: .82rem;
+      text-transform: uppercase;
+    }
+    .overview-table tbody tr:nth-child(odd)  { background: var(--cream); }
+    .overview-table tbody tr:nth-child(even) { background: var(--cream-dark); }
+    .overview-table tbody tr:hover { background: var(--teal-pale); transition: background .15s; }
+    .overview-table td {
+      padding: .8rem 1.2rem;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+    .overview-table td:first-child {
+      font-family: 'Fira Mono', monospace;
+      font-size: .82rem;
+      color: var(--teal-dark);
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    .overview-table td:nth-child(2) {
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .overview-table ul { padding-left: 1.1rem; margin: 0; }
+    .overview-table li { margin-bottom: .25rem; color: var(--ink-soft); }
+
+    /* ── CALLOUT / TIP BOX ── */
+    .callout {
+      background: var(--teal-pale);
+      border-left: 4px solid var(--teal);
+      padding: 1rem 1.3rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.4rem 0;
+      font-size: .93rem;
+    }
+    .callout strong { color: var(--teal-dark); }
+
+    .warning {
+      background: #fdf6ee;
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.3rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.4rem 0;
+      font-size: .93rem;
+    }
+    .warning strong { color: var(--accent); }
+
+    /* ── CARD GRID ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+      margin: 1.4rem 0;
+    }
+    .card {
+      background: var(--cream-dark);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.2rem 1.3rem;
+    }
+    .card h4 {
+      font-family: 'Playfair Display', serif;
+      color: var(--teal-dark);
+      font-size: 1rem;
+      margin-bottom: .5rem;
+    }
+    .card p { font-size: .9rem; margin-bottom: 0; }
+
+    /* ── METHOD COMPARISON TABLE ── */
+    .method-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+      margin: 1.4rem 0;
+      overflow: hidden;
+    }
+    .method-table th {
+      background: var(--teal-dark);
+      color: #fff;
+      padding: .7rem 1rem;
+      text-align: left;
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .method-table td {
+      padding: .7rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .method-table tr:nth-child(even) td { background: var(--cream-dark); }
+    .method-table tr:hover td { background: var(--teal-pale); transition: background .15s; }
+    .method-table .author { font-weight: 700; color: var(--teal-dark); }
+    .method-table .year { font-family: 'Fira Mono', monospace; font-size: .8rem; color: var(--ink-muted); }
+
+    /* ── PHASE MODEL ── */
+    .phases {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      margin: 1.4rem 0;
+    }
+    .phase {
+      background: var(--cream-dark);
+      border: 1px solid var(--teal);
+      border-radius: 6px;
+      padding: .6rem 1rem;
+      font-size: .88rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .phase .ph-num {
+      background: var(--teal);
+      color: #fff;
+      font-family: 'Fira Mono', monospace;
+      font-size: .75rem;
+      padding: .15rem .4rem;
+      border-radius: 3px;
+      font-weight: 700;
+    }
+
+    /* ── MATURITY LEVELS ── */
+    .maturity-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: .4rem;
+      margin: 1.4rem 0;
+    }
+    .mat-level {
+      border-radius: 6px;
+      padding: .8rem .7rem;
+      text-align: center;
+      font-size: .82rem;
+    }
+    .mat-level .lv { font-family: 'Fira Mono', monospace; font-size: 1.1rem; font-weight: 700; display: block; margin-bottom: .25rem; }
+    .mat-level .name { font-weight: 700; font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; }
+    .mat-level .desc { font-size: .75rem; color: var(--ink-muted); margin-top: .25rem; }
+    .mat-1 { background: #f0ebe2; border: 1px solid #ccc; }
+    .mat-2 { background: #d6eeee; border: 1px solid var(--teal-light); }
+    .mat-3 { background: #b8e4e4; border: 1px solid var(--teal); }
+    .mat-4 { background: #85cdcd; border: 1px solid var(--teal-dark); color: #fff; }
+    .mat-5 { background: var(--teal-dark); border: 1px solid #134e4e; color: #fff; }
+    .mat-4 .desc, .mat-5 .desc { color: rgba(255,255,255,.8); }
+
+    /* ── ABSTRACT STRUCTURE ── */
+    .abstract-parts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .8rem;
+      margin: 1.2rem 0;
+    }
+    @media (max-width: 600px) { .abstract-parts { grid-template-columns: 1fr; } }
+    .abs-part {
+      background: var(--cream-dark);
+      border-top: 3px solid var(--teal);
+      border-radius: 0 0 6px 6px;
+      padding: .9rem 1rem;
+      font-size: .9rem;
+    }
+    .abs-part strong { display: block; color: var(--teal-dark); margin-bottom: .3rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; }
+
+    /* ── CHECKLIST ── */
+    .checklist { list-style: none; padding: 0; margin: 1rem 0; }
+    .checklist li {
+      padding: .45rem .6rem .45rem 2rem;
+      position: relative;
+      font-size: .93rem;
+      color: var(--ink-soft);
+      border-bottom: 1px dashed var(--border);
+    }
+    .checklist li::before {
+      content: '☐';
+      position: absolute;
+      left: .4rem;
+      color: var(--teal);
+      font-size: 1rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--teal-dark);
+      color: rgba(255,255,255,.7);
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: .85rem;
+    }
+    footer strong { color: #fff; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      .method-table { font-size: .8rem; }
+      .method-table th, .method-table td { padding: .5rem .6rem; }
+      .maturity-bar { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#overview">Übersicht</a>
+  <a href="#einleitung">Einleitung</a>
+  <a href="#literatur">Literatur</a>
+  <a href="#ist">Ist-Situation</a>
+  <a href="#empfehlung">Empfehlung</a>
+  <a href="#abschluss">Abschluss</a>
+  <a href="#abstract">Abstract</a>
+  <a href="#lit-review">Literaturmethoden</a>
+  <a href="#transformation">Transformation</a>
+  <a href="#reife">Reifegrad</a>
+  <a href="#checklist">Checkliste</a>
+</nav>
+
+<!-- HERO -->
+<header>
+  <div class="badge">Scientific Writing Guide</div>
+  <h1>How to Write a Scientific Paper<br/><em>– fast –</em></h1>
+  <p class="sub">by Leon Seelbach &nbsp;·&nbsp; Deutsch / Englisch &nbsp;·&nbsp; Struktur · Methoden · Praxis</p>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 0. ÜBERSICHTSTABELLE -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="overview">
+  <div class="container">
+    <h2><span class="num">00</span> Aufbau auf einen Blick</h2>
+    <p>Die folgende Tabelle zeigt den klassischen Aufbau einer wissenschaftlichen Arbeit. Jedes Kapitel hat eine klare Funktion – wer die Logik dahinter versteht, schreibt schneller und besser.</p>
+    <table class="overview-table">
+      <thead>
+        <tr>
+          <th>Kapitel</th>
+          <th>Bereich</th>
+          <th>Kernfragen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Kap. 1</td>
+          <td>Einleitender Teil</td>
+          <td>
+            <ul>
+              <li>1.1 Warum ist das Thema aktuell? (Fachartikel als Beleg)</li>
+              <li>1.2 Was ist das Ziel der Arbeit vor diesem Hintergrund?</li>
+              <li>1.3 Wie und warum wird die Arbeit so aufgebaut?</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Kap. 2</td>
+          <td>Literaturteil – Theoretische Grundlagen</td>
+          <td>
+            <ul>
+              <li>Wie wird das Thema von Experten systematisiert?</li>
+              <li>Welche Ansätze &amp; Richtungen gibt es in der Literatur?</li>
+              <li>Wer sagt was?</li>
+              <li>Welcher Ansatz ist für diese Arbeit geeignet – und warum?</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Kap. 3</td>
+          <td>Ist-Situation</td>
+          <td>
+            <ul>
+              <li>Konkrete Problemstellung: Warum gibt es diese Arbeit?</li>
+              <li>Wie läuft was aktuell in der Praxis?</li>
+              <li>Was ist das eigentliche Problem?</li>
+              <li>In harten Zahlen und Fakten begründen</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Kap. 4</td>
+          <td>Kreativer Teil – Berateransatz</td>
+          <td>
+            <ul>
+              <li>Welche Vorschläge mache ich – und warum genau diese?</li>
+              <li>Handlungsempfehlung(en)</li>
+              <li>Auswirkungen auf die Ist-Situation</li>
+              <li>Restriktionen beachten; quantitativ begründen</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Kap. 5</td>
+          <td>Abschließender Teil</td>
+          <td>
+            <ul>
+              <li>Kritische Reflexion: Richtiger Ansatz gewählt?</li>
+              <li>Welche Punkte sind offen geblieben?</li>
+              <li>Wie geht es mit dem Thema weiter?</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <strong>Tipp:</strong> Schreib Kapitel 3 und 4 zuerst – dort liegt dein eigentlicher Beitrag. Einleitung und Fazit folgen am Ende, wenn du weißt, was du wirklich sagen willst.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 1. EINLEITUNG -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="einleitung">
+  <div class="container">
+    <h2><span class="num">01</span> Einleitender Teil</h2>
+
+    <h3>1.1 Aktualität – „Warum jetzt?"</h3>
+    <p>Die Einleitung macht das Thema für den Leser relevant. Nutze aktuelle Fachaufsätze (≤ 5 Jahre), Studien oder Branchenberichte, um zu zeigen, dass das Thema nicht nur akademisch interessant ist. Ein guter Einstieg ist oft eine überraschende Zahl oder ein aktuelles Ereignis aus der Praxis.</p>
+    <div class="callout">
+      <strong>Formulierungshilfe:</strong> „In jüngster Zeit gewinnt X zunehmend an Bedeutung, da Y … [Quellenbeleg]. Dies führt in der Praxis zu Z … [empirische Zahl/Studie]."
+    </div>
+
+    <h3>1.2 Zielsetzung und Forschungsfrage</h3>
+    <p>Formuliere eine klare, präzise <strong>Forschungsfrage</strong> oder Zielsetzung. Vermeide vage Formulierungen wie „Diese Arbeit beschäftigt sich mit …". Besser: „Ziel dieser Arbeit ist es, zu untersuchen, ob/inwiefern/wie …"</p>
+    <div class="warning">
+      <strong>Häufiger Fehler:</strong> Zu breite Zielsetzung. Eine gute Forschungsfrage ist spezifisch, beantwortbar und relevant.
+    </div>
+
+    <h3>1.3 Gang der Argumentation</h3>
+    <p>Erkläre kurz, warum die Arbeit so aufgebaut ist. Nicht nur <em>was</em> die Kapitel enthalten, sondern <em>warum</em> dieser Aufbau für deine Fragestellung sinnvoll ist. Ein Satz pro Kapitel genügt – aber mit Begründung.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 2. LITERATUR -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="literatur">
+  <div class="container">
+    <h2><span class="num">02</span> Literaturteil – Theoretische Grundlagen</h2>
+
+    <p>Kapitel 2 ist kein Exzerpt von Quellen, sondern eine <strong>kritische Synthese</strong>. Deine Aufgabe: zeigen, dass du die relevante Literatur kennst, die verschiedenen Schulen verstehst und daraus einen für deine Arbeit geeigneten Rahmen ableiten kannst.</p>
+
+    <h3>Systematisches Vorgehen</h3>
+    <p>Nutze eine explizit beschriebene Recherche-Methode. Erkläre in 2–3 Sätzen, welche Datenbanken (z. B. Google Scholar, Scopus, JSTOR), welche Suchbegriffe und welche Ein-/Ausschlusskriterien du verwendet hast. Damit machst du deine Literaturarbeit intersubjektiv nachvollziehbar.</p>
+
+    <div class="callout">
+      <strong>Vier Kernaufgaben des Literaturteils:</strong><br/>
+      (1) Systematisierung des Forschungsfeldes &nbsp;·&nbsp; (2) Gegenüberstellung verschiedener Perspektiven &nbsp;·&nbsp; (3) Zuordnung von Autoren zu Positionen &nbsp;·&nbsp; (4) begründete Auswahl des geeigneten Rahmens
+    </div>
+
+    <h3>Aufbaulogik für Kapitel 2</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>2.1 Begriffsbestimmung</h4>
+        <p>Definiere zentrale Begriffe anhand der Literatur. Zeige, wenn Definitionen divergieren – das ist wissenschaftlich relevant, kein Problem.</p>
+      </div>
+      <div class="card">
+        <h4>2.2 Systematisierung</h4>
+        <p>Wie klassifizieren Experten das Forschungsfeld? Erstelle ggf. eine Übersichtsmatrix (Autor, Jahr, Ansatz, Fokus).</p>
+      </div>
+      <div class="card">
+        <h4>2.3 Kritischer Vergleich</h4>
+        <p>Wer widerspricht wem? Wo gibt es Konsens? Ein kurzes Argument-Gegenargument-Schema schafft analytische Tiefe.</p>
+      </div>
+      <div class="card">
+        <h4>2.4 Theoretischer Rahmen</h4>
+        <p>Begründe, welchen Ansatz du für Kapitel 3 und 4 übernimmst – und warum er für deinen Kontext passt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 3. IST-SITUATION -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="ist">
+  <div class="container">
+    <h2><span class="num">03</span> Ist-Situation</h2>
+
+    <p>Kapitel 3 erdet die Theorie in der Realität. Hier beschreibst du den <strong>Status quo</strong> – und machst das Problem greifbar.</p>
+
+    <h3>Strukturierungsvorschlag</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>Kontext &amp; Rahmenbedingungen</h4>
+        <p>Wer ist betroffen? In welchem Unternehmens-, Branchen- oder gesellschaftlichen Kontext bewegt sich die Problemstellung?</p>
+      </div>
+      <div class="card">
+        <h4>Ablauf und Prozesse</h4>
+        <p>Wie läuft es aktuell? Prozessdiagramme oder Beschreibungen (z. B. als BPMN-Skizze) helfen dem Leser.</p>
+      </div>
+      <div class="card">
+        <h4>Problemidentifikation</h4>
+        <p>Was genau ist das Problem? Sei präzise: nicht „ineffizient", sondern „Durchlaufzeit beträgt X Tage, Benchmark liegt bei Y."</p>
+      </div>
+      <div class="card">
+        <h4>Quantitative Belege</h4>
+        <p>Zahlen überzeugen. Nutze interne Daten, Studien, Statistiken. Zeige Abweichungen vom Soll oder vom Branchendurchschnitt.</p>
+      </div>
+    </div>
+
+    <h3>Case Study-Ansatz</h3>
+    <p>Eine Fallstudie ist eine bewährte Methode, um die Ist-Situation zu beschreiben. Sie kann als <strong>deskriptive, explorative oder erklärende</strong> Fallstudie angelegt sein (Yin, 2018). Typische Elemente:</p>
+    <div class="callout">
+      <strong>Case Study Design (nach Yin):</strong> Forschungsfrage → Proposition(en) → Analyseeinheit → Logik der Verknüpfung → Kriterien für die Interpretation. Bereits beim Aufbau von Kap. 3 sollte klar sein, welcher Fallstudientyp vorliegt.
+    </div>
+
+    <h3>Datenerhebung in der Praxis</h3>
+    <p>Mögliche Methoden: Interviews, Beobachtung, Dokumentenanalyse, Surveys, Kennzahlenauswertung. Beschreibe kurz dein Vorgehen – das erhöht die methodische Transparenz und Glaubwürdigkeit.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 4. HANDLUNGSEMPFEHLUNG -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="empfehlung">
+  <div class="container">
+    <h2><span class="num">04</span> Handlungsempfehlung – Kreativer Teil</h2>
+
+    <p>Kapitel 4 ist dein eigentlicher Mehrwert. Hier verlässt du die Deskription und wirst zum <strong>Gestalter</strong>. Der „Berateransatz" bedeutet: Vorschläge machen, begründen und ihre Wirkung abschätzen.</p>
+
+    <h3>Aufbaulogik</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>Ableitung aus der Theorie</h4>
+        <p>Zeige explizit, wie deine Empfehlungen auf dem in Kap. 2 gewählten Rahmen aufbauen. Kap. 2 und 4 müssen inhaltlich verbunden sein.</p>
+      </div>
+      <div class="card">
+        <h4>Optionen und Auswahl</h4>
+        <p>Diskutiere mindestens 2–3 Alternativen. Bewerte sie anhand von Kriterien (z. B. Aufwand, Nutzen, Risiko) und begründe deine Empfehlung.</p>
+      </div>
+      <div class="card">
+        <h4>Wirkungsanalyse</h4>
+        <p>Was ändert sich durch deine Empfehlung? Quantifiziere wenn möglich: „Reduktion der Durchlaufzeit von X auf Y Tage = Einsparpotenzial Z €."</p>
+      </div>
+      <div class="card">
+        <h4>Restriktionen</h4>
+        <p>Was könnte die Umsetzung erschweren? Budget, Regulatorik, Unternehmenskultur, technologische Reife? Sei ehrlich – das stärkt die Glaubwürdigkeit.</p>
+      </div>
+    </div>
+
+    <div class="warning">
+      <strong>Fehler vermeiden:</strong> Empfehlungen dürfen nicht aus dem Nichts kommen. Jede Handlungsempfehlung braucht einen Anker in der Theorie (Kap. 2) und einen Bezug zum Problem (Kap. 3).
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- 5. ABSCHLUSS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="abschluss">
+  <div class="container">
+    <h2><span class="num">05</span> Abschließender Teil</h2>
+
+    <h3>Fazit – mehr als eine Zusammenfassung</h3>
+    <p>Das Fazit hat drei Aufgaben: (1) Beantwortung der Forschungsfrage, (2) kritische Reflexion des eigenen Vorgehens, (3) Ausblick. Vermeide eine bloße Wiederholung der Kapitelinhalte.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>Kritische Reflexion</h4>
+        <p>Habe ich den richtigen Ansatz gewählt? Was hätte ich anders machen können? Welche Einschränkungen hat meine Methodik?</p>
+      </div>
+      <div class="card">
+        <h4>Offene Punkte</h4>
+        <p>Welche Fragen konnte diese Arbeit nicht beantworten? Das ist keine Schwäche – es zeigt Bewusstsein für die Grenzen der Untersuchung.</p>
+      </div>
+      <div class="card">
+        <h4>Ausblick</h4>
+        <p>Wo geht das Thema hin? Welche weiteren Forschungsfragen ergeben sich? Ein guter Ausblick zeigt, dass du das Feld wirklich verstehst.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ABSTRACT -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="abstract">
+  <div class="container">
+    <h2><span class="num">06</span> Den Abstract richtig schreiben</h2>
+
+    <p>Der Abstract ist das wichtigste Element des Papers – er entscheidet, ob jemand die Arbeit überhaupt liest. Typische Länge: <strong>150–250 Wörter</strong>. Schreib ihn als letztes, aber überarbeite ihn am sorgfältigsten.</p>
+
+    <h3>Die fünf Bausteine</h3>
+    <div class="abstract-parts">
+      <div class="abs-part">
+        <strong>1 · Kontext / Motivation</strong>
+        1–2 Sätze: Warum ist das Thema wichtig? Was ist der Stand der Dinge?
+      </div>
+      <div class="abs-part">
+        <strong>2 · Problem / Gap</strong>
+        Was ist noch unklar oder ungelöst? Das ist der Grund für deine Arbeit.
+      </div>
+      <div class="abs-part">
+        <strong>3 · Vorgehen / Methode</strong>
+        Was hast du getan? Welche Methode wurde verwendet? (1 Satz genügt)
+      </div>
+      <div class="abs-part">
+        <strong>4 · Ergebnisse</strong>
+        Was kam heraus? Konkret und quantifizierbar, wenn möglich.
+      </div>
+      <div class="abs-part">
+        <strong>4 · Schlussfolgerungen / Implikationen</strong>
+        Was bedeutet das? Für Theorie und/oder Praxis?
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Häufige Fehler (nach „Light Blue Touchpaper"):</strong> Zu viel Kontext, zu wenig Ergebnis · Keine konkreten Zahlen · Methode wird ausgelassen · Schlussfolgerungen fehlen · Länger als 250 Wörter
+    </div>
+
+    <div class="warning">
+      <strong>Nicht im Abstract:</strong> Zitate, Abkürzungen ohne Erklärung, Verweise auf andere Abschnitte, neue Informationen die im Paper nicht vorkommen.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- LITERATURMETHODEN -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="lit-review">
+  <div class="container">
+    <h2><span class="num">07</span> Methoden der Literaturanalyse</h2>
+
+    <p>Für Kapitel 2 ist eine <strong>explizit begründete Recherchestrategie</strong> entscheidend. Die folgende Tabelle zeigt die wichtigsten Ansätze aus der Forschungsliteratur und ihre Kernunterschiede.</p>
+
+    <table class="method-table">
+      <thead>
+        <tr>
+          <th>Autor(en)</th>
+          <th>Jahr</th>
+          <th>Ansatz / Methode</th>
+          <th>Kernprinzip &amp; Eignung</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="author">Randolph</td>
+          <td class="year">2009</td>
+          <td>Dissertation Literature Review</td>
+          <td>Narrativer Ansatz für Qualifikationsarbeiten. Betonung auf thematischer Synthese statt strenger Protokollierung. Gut für Seminar- und Masterarbeiten geeignet.</td>
+        </tr>
+        <tr>
+          <td class="author">Cooper</td>
+          <td class="year">1988</td>
+          <td>Taxonomy of Literature Reviews</td>
+          <td>Klassifikation von Reviews nach Fokus, Ziel, Perspektive, Abdeckung, Organisation und Publikum. Hilft bei der Entscheidung, welcher Review-Typ zur eigenen Arbeit passt.</td>
+        </tr>
+        <tr>
+          <td class="author">Kitchenham</td>
+          <td class="year">2004, 2007</td>
+          <td>Systematic Literature Review (SLR) – ursprünglich aus der Medizin</td>
+          <td>Höchste Reproduzierbarkeit durch strenge Protokollpflicht, PICO-Format, Ein-/Ausschlusskriterien und Qualitätsbewertung. Standard in der evidenzbasierten Forschung und Informatik.</td>
+        </tr>
+        <tr>
+          <td class="author">Harris et al.</td>
+          <td class="year">2014</td>
+          <td>Rapid Evidence Synthesis / Narrative Review</td>
+          <td>Pragmatischer Ansatz für Zeitbeschränkungen. Transparente Dokumentation bei reduziertem Aufwand. Gut für Praxisarbeiten mit engem Zeitrahmen.</td>
+        </tr>
+        <tr>
+          <td class="author">vom Brocke et al.</td>
+          <td class="year">2009, 2015</td>
+          <td>Literature Review in IS-Forschung</td>
+          <td>Fünf-Schritte-Prozess für die Wirtschaftsinformatik: Scope definieren → Konzeptualisieren → Literatur suchen → Analysieren → Agenda aufstellen. Sehr praxisnah für WI-/BWL-Arbeiten.</td>
+        </tr>
+        <tr>
+          <td class="author">Webster &amp; Watson</td>
+          <td class="year">2002</td>
+          <td>Concept-Centric Literature Review</td>
+          <td>Konzeptmatrix als zentrales Werkzeug: Konzepte in Zeilen, Quellen in Spalten. Fördert thematische Synthese statt reiner Auflistung. Empfohlen für theoretische Beiträge in Managementforschung.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Empfehlung für die Praxis</h3>
+    <div class="callout">
+      <strong>Für Seminar-/Bachelorarbeiten:</strong> Randolph oder vom Brocke – pragmatisch, dokumentierbar, für Betreuer nachvollziehbar.<br/>
+      <strong>Für Masterarbeiten und Publikationen:</strong> Kitchenham SLR oder Webster &amp; Watson – höhere methodische Strenge, bessere Verteidigbarkeit.<br/>
+      <strong>Concept Matrix (Webster &amp; Watson)</strong> empfiehlt sich immer als ergänzendes Instrument für die Strukturierung von Kapitel 2.
+    </div>
+
+    <h3>Praktische Schritte der Literaturrecherche</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>① Scope &amp; Protokoll</h4>
+        <p>Datenbanken (Scopus, WoS, EBSCO, Google Scholar), Suchbegriffe, Zeitraum, Sprache – alles vorab festlegen und dokumentieren.</p>
+      </div>
+      <div class="card">
+        <h4>② Screening</h4>
+        <p>Titel → Abstract → Volltext. Klare Einschlusskriterien (z. B. Peer-Review, Themenrelevanz) und Ausschlusskriterien (z. B. vor 2010, graue Literatur).</p>
+      </div>
+      <div class="card">
+        <h4>③ Qualitätsbewertung</h4>
+        <p>Nur bei SLR zwingend. Einfach: Journal-Ranking (VHB-Jourqual, ABS) oder Zitationszahl als Proxy-Qualitätsindikator.</p>
+      </div>
+      <div class="card">
+        <h4>④ Synthese</h4>
+        <p>Concept Matrix aufbauen. Themen clustern. Widersprüche und Gemeinsamkeiten explizit benennen – das ist Wissenschaft.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- TRANSFORMATION / PHASENMODELLE -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="transformation">
+  <div class="container">
+    <h2><span class="num">08</span> Phasenmodelle für Transformation</h2>
+
+    <p>Wenn deine Arbeit Veränderungsvorhaben (Change Management, Digitalisierung, Prozessoptimierung) behandelt, sind strukturierte Phasenmodelle unverzichtbar – sowohl für die Theorie (Kap. 2) als auch für die Handlungsempfehlung (Kap. 4).</p>
+
+    <!-- KOTTER -->
+    <h3>Kotter's 8-Stufen-Modell (1996)</h3>
+    <p>Das meistzitierte Change-Management-Modell. Kotter betont die <strong>sequenzielle Abfolge</strong> – jede Stufe ist Voraussetzung für die nächste. Besonders geeignet für Top-down-Transformationen in Großunternehmen.</p>
+    <div class="phases">
+      <div class="phase"><span class="ph-num">1</span> Dringlichkeit erzeugen</div>
+      <div class="phase"><span class="ph-num">2</span> Führungskoalition aufbauen</div>
+      <div class="phase"><span class="ph-num">3</span> Vision entwickeln</div>
+      <div class="phase"><span class="ph-num">4</span> Vision kommunizieren</div>
+      <div class="phase"><span class="ph-num">5</span> Hindernisse beseitigen</div>
+      <div class="phase"><span class="ph-num">6</span> Schnelle Erfolge erzielen</div>
+      <div class="phase"><span class="ph-num">7</span> Erfolge konsolidieren</div>
+      <div class="phase"><span class="ph-num">8</span> Veränderung verankern</div>
+    </div>
+    <div class="callout">
+      <strong>Kritik / Ergänzung:</strong> Kotter's Modell ist linear und unterschätzt politische Dynamiken. In Kap. 4 eignet sich eine Adaption auf agile Iterationsschleifen, wenn der Kontext es erfordert.
+    </div>
+
+    <!-- ADKAR -->
+    <h3>ADKAR-Modell (Prosci / Hiatt, 2006)</h3>
+    <p>ADKAR ist ein <strong>individuumzentriertes Modell</strong> – es fragt, was auf Mitarbeiterebene passieren muss, damit Veränderung gelingt. Ideal als Ergänzung zu Kotter für die Mikro-Ebene.</p>
+    <div class="phases">
+      <div class="phase"><span class="ph-num">A</span> Awareness – Bewusstsein für die Notwendigkeit</div>
+      <div class="phase"><span class="ph-num">D</span> Desire – Wille zur Unterstützung</div>
+      <div class="phase"><span class="ph-num">K</span> Knowledge – Wissen, wie man sich ändert</div>
+      <div class="phase"><span class="ph-num">A</span> Ability – Fähigkeit zur Umsetzung</div>
+      <div class="phase"><span class="ph-num">R</span> Reinforcement – Stabilisierung der Veränderung</div>
+    </div>
+    <div class="callout">
+      <strong>Praxis-Tipp:</strong> ADKAR eignet sich hervorragend, um in Kap. 3 bestehende Change-Defizite zu diagnostizieren (z. B. „Awareness fehlt") und in Kap. 4 gezielte Maßnahmen abzuleiten.
+    </div>
+
+    <!-- DMAIC -->
+    <h3>DMAIC – Six Sigma Prozessverbesserung</h3>
+    <p>DMAIC ist der Standardansatz für datengetriebene Prozessoptimierung (Lean / Six Sigma). Besonders geeignet, wenn in Kap. 3 quantitative Prozesskennzahlen vorhanden sind.</p>
+    <div class="phases">
+      <div class="phase"><span class="ph-num">D</span> Define – Problem &amp; Ziele definieren</div>
+      <div class="phase"><span class="ph-num">M</span> Measure – Ist-Zustand messen</div>
+      <div class="phase"><span class="ph-num">A</span> Analyze – Ursachen analysieren</div>
+      <div class="phase"><span class="ph-num">I</span> Improve – Lösungen entwickeln &amp; umsetzen</div>
+      <div class="phase"><span class="ph-num">C</span> Control – Erfolg sichern &amp; nachhalten</div>
+    </div>
+
+    <h3>Modellvergleich auf einen Blick</h3>
+    <table class="method-table">
+      <thead>
+        <tr><th>Modell</th><th>Fokus</th><th>Ebene</th><th>Stärke</th><th>Geeignet für</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="author">Kotter</td>
+          <td>Organisatorischer Wandel</td>
+          <td>Makro / Organisation</td>
+          <td>Sequenzielle Klarheit, Leadership</td>
+          <td>Kulturwandel, Strategietransformation</td>
+        </tr>
+        <tr>
+          <td class="author">ADKAR</td>
+          <td>Individuelles Change-Erleben</td>
+          <td>Mikro / Individuum</td>
+          <td>Diagnostik auf Mitarbeiterebene</td>
+          <td>HR-Maßnahmen, Schulungsprogramme</td>
+        </tr>
+        <tr>
+          <td class="author">DMAIC</td>
+          <td>Prozessqualität &amp; Effizienz</td>
+          <td>Meso / Prozess</td>
+          <td>Datenbasiert, messbar, wiederholbar</td>
+          <td>Lean, Produktion, Serviceoptimierung</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- REIFEGRADE -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="reife">
+  <div class="container">
+    <h2><span class="num">09</span> Reifegradmodelle – CMMI &amp; Co.</h2>
+
+    <p>Reifegradmodelle bieten einen normativen Bezugspunkt: Sie beschreiben, wie „ausgereift" eine Organisation, ein Prozess oder eine Fähigkeit ist. In wissenschaftlichen Arbeiten dienen sie als <strong>Diagnoseinstrument</strong> (Ist-Situation, Kap. 3) und als <strong>Zielrahmen</strong> (Handlungsempfehlung, Kap. 4).</p>
+
+    <h3>CMMI – Capability Maturity Model Integration</h3>
+    <p>CMMI (SEI / ISACA) ist das bekannteste Prozessreifegradmodell. Ursprünglich für Softwareentwicklung, heute breit auf IT-Management, Projektmanagement und Business-Prozesse angewandt.</p>
+
+    <div class="maturity-bar">
+      <div class="mat-level mat-1">
+        <span class="lv">1</span>
+        <div class="name">Initial</div>
+        <div class="desc">Chaotisch, unvorhersehbar, personenabhängig</div>
+      </div>
+      <div class="mat-level mat-2">
+        <span class="lv">2</span>
+        <div class="name">Managed</div>
+        <div class="desc">Projekte geplant &amp; kontrolliert; reaktiv</div>
+      </div>
+      <div class="mat-level mat-3">
+        <span class="lv">3</span>
+        <div class="name">Defined</div>
+        <div class="desc">Standardisierte Prozesse; proaktiv</div>
+      </div>
+      <div class="mat-level mat-4">
+        <span class="lv">4</span>
+        <div class="name">Quantitatively Managed</div>
+        <div class="desc">Statistisch gesteuert; datenbasiert</div>
+      </div>
+      <div class="mat-level mat-5">
+        <span class="lv">5</span>
+        <div class="name">Optimizing</div>
+        <div class="desc">Kontinuierliche Verbesserung; innovationsgetrieben</div>
+      </div>
+    </div>
+
+    <h3>Anwendung in der wissenschaftlichen Arbeit</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>Als Diagnoseinstrument (Kap. 3)</h4>
+        <p>Bestimme den aktuellen Reifegrad anhand eines Assessments (Interviews, Dokumentenanalyse, Checklisten). Begründe, warum die Organisation auf Niveau X steht – mit Belegen.</p>
+      </div>
+      <div class="card">
+        <h4>Als Zielrahmen (Kap. 4)</h4>
+        <p>Definiere das Zielreifegrad-Niveau und leite daraus konkrete Maßnahmen ab: Was muss sich ändern, damit Stufe X+1 erreicht wird?</p>
+      </div>
+      <div class="card">
+        <h4>Weitere Reifegradmodelle</h4>
+        <p><strong>SPICE / ISO 15504</strong> (IT-Prozesse) · <strong>COBIT</strong> (IT-Governance) · <strong>DMM</strong> (Data Management) · <strong>Analytics Maturity Models</strong> (z. B. Gartner, SAS)</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Kombination empfohlen:</strong> Reifegrad-Ist (Kap. 3) + Transformationsmodell (Kotter/ADKAR/DMAIC) für den Weg dorthin (Kap. 4) = vollständige und methodisch kohärente Arbeit.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- CHECKLISTE -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="checklist">
+  <div class="container">
+    <h2><span class="num">10</span> Final Checklist – vor der Abgabe</h2>
+    <p>Gehe diese Liste durch, bevor du die Arbeit einreichst. Jeder Punkt ist ein häufiger Fehler.</p>
+
+    <h3>Struktur &amp; Argumentation</h3>
+    <ul class="checklist">
+      <li>Forschungsfrage klar formuliert und in Kap. 5 beantwortet</li>
+      <li>Roter Faden: Kap. 2 → Kap. 3 → Kap. 4 logisch verknüpft</li>
+      <li>Jede Handlungsempfehlung hat einen theoretischen Anker (Kap. 2)</li>
+      <li>Quantitative Belege für Problem (Kap. 3) und Wirkung (Kap. 4) vorhanden</li>
+      <li>Fazit beantwortet die Forschungsfrage explizit</li>
+    </ul>
+
+    <h3>Literatur &amp; Zitation</h3>
+    <ul class="checklist">
+      <li>Recherchestrategie dokumentiert (Datenbanken, Suchbegriffe, Zeitraum)</li>
+      <li>Primärliteratur verwendet (nicht nur Sekundärquellen)</li>
+      <li>Einheitlicher Zitierstil durchgehend (APA, Harvard oder nach Vorgabe)</li>
+      <li>Alle Quellen im Literaturverzeichnis vollständig und korrekt</li>
+      <li>Keine Plagiate – alle Paraphrasierungen belegt</li>
+    </ul>
+
+    <h3>Abstract &amp; Formalia</h3>
+    <ul class="checklist">
+      <li>Abstract enthält: Kontext, Problem, Methode, Ergebnis, Schlussfolgerung</li>
+      <li>Abstract ≤ 250 Wörter, keine Zitate, keine Abkürzungen ohne Erklärung</li>
+      <li>Seitenzahlen, Inhaltsverzeichnis, Abbildungsverzeichnis korrekt</li>
+      <li>Sprache: konsistenter Tempus (Präsens für Theorie, Vergangenheit für empirische Befunde)</li>
+      <li>Korrekturgelesen – idealerweise von einer zweiten Person</li>
+    </ul>
+
+    <h3>Wissenschaftlicher Stil</h3>
+    <ul class="checklist">
+      <li>Kein „ich" – neutrale, akademische Formulierungen</li>
+      <li>Keine umgangssprachlichen Ausdrücke</li>
+      <li>Wertende Aussagen nur, wenn begründet und belegt</li>
+      <li>Abkürzungen beim ersten Auftreten ausgeschrieben</li>
+      <li>Grafiken und Tabellen beschriftet, nummeriert und im Text referenziert</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<footer>
+  <strong>How to Write a Scientific Paper – fast</strong><br/>
+  by Leon Seelbach &nbsp;·&nbsp; Quellen: SDQ Wiki · TU Berlin SLR · Light Blue Touchpaper · Kitchenham · vom Brocke · Webster &amp; Watson · Randolph · Cooper · Harris · Kotter · Prosci ADKAR · Six Sigma DMAIC · CMMI / SEI
+</footer>
+
+</body>
+</html>
