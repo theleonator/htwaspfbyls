@@ -7,18 +7,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --cream:       #f7f3ea;
-      --cream-dark:  #ede8da;
-      --cream-mid:   #f2ece0;
-      --teal:        #2a8c8c;
-      --teal-light:  #3db5b5;
-      --teal-pale:   #d0eeee;
-      --teal-dark:   #1c6666;
-      --ink:         #2b2b2b;
-      --ink-soft:    #4a4a4a;
-      --ink-muted:   #7a7a7a;
-      --accent:      #c4854a;
-      --border:      #d4cfc3;
+      --bg:          #0a0a0a;
+      --bg-card:     #111111;
+      --bg-card2:    #161616;
+      --teal:        #00e0b0;
+      --teal-light:  #33e8be;
+      --teal-pale:   rgba(0,224,176,.08);
+      --teal-dark:   #00ad88;
+      --white:       #ffffff;
+      --text:        #e8e8e8;
+      --text-muted:  #999999;
+      --accent:      #ff9f58;
+      --border:      #252525;
+      --border-teal: rgba(0,229,229,.25);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,8 +27,8 @@
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--cream);
-      color: var(--ink);
+      background: var(--bg);
+      color: var(--text);
       font-family: 'Source Sans 3', sans-serif;
       font-size: 16px;
       line-height: 1.7;
@@ -38,8 +39,10 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: var(--cream-dark);
-      border-bottom: 2px solid var(--teal);
+      background: rgba(10,10,10,.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-teal);
       padding: 0 2rem;
       display: flex;
       align-items: center;
@@ -51,22 +54,22 @@
     nav a {
       display: block;
       padding: .75rem 1.1rem;
-      color: var(--ink-soft);
+      color: var(--text-muted);
       text-decoration: none;
       font-size: .82rem;
       font-weight: 600;
       letter-spacing: .04em;
       text-transform: uppercase;
       white-space: nowrap;
-      border-bottom: 3px solid transparent;
+      border-bottom: 2px solid transparent;
       transition: color .2s, border-color .2s;
     }
     nav a:hover { color: var(--teal); border-color: var(--teal); }
 
     /* ── HERO ── */
     header {
-      background: var(--teal-dark);
-      color: var(--cream);
+      background: #000;
+      color: var(--white);
       padding: 4rem 2rem 3.5rem;
       text-align: center;
       position: relative;
@@ -80,34 +83,46 @@
         -45deg,
         transparent,
         transparent 28px,
-        rgba(255,255,255,.03) 28px,
-        rgba(255,255,255,.03) 29px
+        rgba(0,224,176,.04) 28px,
+        rgba(0,224,176,.04) 29px
       );
     }
-    header .badge {
-      display: inline-block;
-      background: var(--teal-light);
-      color: #fff;
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      padding: .3rem .9rem;
-      border-radius: 2px;
-      margin-bottom: 1.2rem;
+    #blizzard {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    header h1, header p.byline { position: relative; z-index: 1; }
+    header::after {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(0,224,176,.13) 0%, transparent 70%);
+      pointer-events: none;
     }
     header h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(1.9rem, 5vw, 3.2rem);
       line-height: 1.2;
       margin-bottom: .6rem;
+      position: relative;
     }
-    header h1 em { font-style: italic; color: var(--teal-light); }
-    header p.sub {
-      font-size: 1rem;
-      opacity: .75;
-      margin-top: .4rem;
-      font-weight: 300;
+    header h1 em { font-style: italic; color: var(--teal); text-shadow: 0 0 30px rgba(0,229,229,.6); }
+    header p.byline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      font-style: italic;
+      color: var(--white);
+      opacity: .7;
+      margin-top: .6rem;
+      position: relative;
     }
 
     /* ── LAYOUT ── */
@@ -119,7 +134,8 @@
     h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.75rem;
-      color: var(--teal-dark);
+      color: var(--teal);
+      text-shadow: 0 0 24px rgba(0,229,229,.35);
       margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
@@ -127,22 +143,23 @@
     }
     h2 .num {
       background: var(--teal);
-      color: #fff;
+      color: #000;
       font-family: 'Fira Mono', monospace;
       font-size: .85rem;
       padding: .2rem .55rem;
       border-radius: 3px;
       flex-shrink: 0;
+      text-shadow: none;
     }
 
     h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.15rem;
-      color: var(--ink);
+      color: var(--white);
       margin: 1.6rem 0 .5rem;
     }
 
-    p { margin-bottom: .9rem; color: var(--ink-soft); }
+    p { margin-bottom: .9rem; color: var(--text); }
 
     /* ── OVERVIEW TABLE ── */
     .overview-table {
@@ -156,7 +173,7 @@
     }
     .overview-table thead tr {
       background: var(--teal);
-      color: #fff;
+      color: #000;
     }
     .overview-table thead th {
       padding: .85rem 1.2rem;
@@ -166,27 +183,28 @@
       font-size: .82rem;
       text-transform: uppercase;
     }
-    .overview-table tbody tr:nth-child(odd)  { background: var(--cream); }
-    .overview-table tbody tr:nth-child(even) { background: var(--cream-dark); }
+    .overview-table tbody tr:nth-child(odd)  { background: var(--bg-card); }
+    .overview-table tbody tr:nth-child(even) { background: var(--bg-card2); }
     .overview-table tbody tr:hover { background: var(--teal-pale); transition: background .15s; }
     .overview-table td {
       padding: .8rem 1.2rem;
       vertical-align: top;
       border-bottom: 1px solid var(--border);
+      color: var(--text);
     }
     .overview-table td:first-child {
       font-family: 'Fira Mono', monospace;
       font-size: .82rem;
-      color: var(--teal-dark);
+      color: var(--teal);
       white-space: nowrap;
       font-weight: 500;
     }
     .overview-table td:nth-child(2) {
       font-weight: 700;
-      color: var(--ink);
+      color: var(--white);
     }
     .overview-table ul { padding-left: 1.1rem; margin: 0; }
-    .overview-table li { margin-bottom: .25rem; color: var(--ink-soft); }
+    .overview-table li { margin-bottom: .25rem; color: var(--text); }
 
     /* ── CALLOUT / TIP BOX ── */
     .callout {
@@ -196,16 +214,18 @@
       border-radius: 0 6px 6px 0;
       margin: 1.4rem 0;
       font-size: .93rem;
+      color: var(--text);
     }
-    .callout strong { color: var(--teal-dark); }
+    .callout strong { color: var(--teal); }
 
     .warning {
-      background: #fdf6ee;
+      background: rgba(255,159,88,.07);
       border-left: 4px solid var(--accent);
       padding: 1rem 1.3rem;
       border-radius: 0 6px 6px 0;
       margin: 1.4rem 0;
       font-size: .93rem;
+      color: var(--text);
     }
     .warning strong { color: var(--accent); }
 
@@ -217,18 +237,20 @@
       margin: 1.4rem 0;
     }
     .card {
-      background: var(--cream-dark);
+      background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 1.2rem 1.3rem;
+      transition: border-color .2s;
     }
+    .card:hover { border-color: var(--border-teal); }
     .card h4 {
       font-family: 'Playfair Display', serif;
-      color: var(--teal-dark);
+      color: var(--teal);
       font-size: 1rem;
       margin-bottom: .5rem;
     }
-    .card p { font-size: .9rem; margin-bottom: 0; }
+    .card p { font-size: .9rem; margin-bottom: 0; color: var(--text); }
 
     /* ── METHOD COMPARISON TABLE ── */
     .method-table {
@@ -239,23 +261,25 @@
       overflow: hidden;
     }
     .method-table th {
-      background: var(--teal-dark);
-      color: #fff;
+      background: #0d2e2e;
+      color: var(--teal);
       padding: .7rem 1rem;
       text-align: left;
       font-size: .8rem;
       text-transform: uppercase;
       letter-spacing: .06em;
+      border-bottom: 1px solid var(--border-teal);
     }
     .method-table td {
       padding: .7rem 1rem;
       border-bottom: 1px solid var(--border);
       vertical-align: top;
+      color: var(--text);
     }
-    .method-table tr:nth-child(even) td { background: var(--cream-dark); }
+    .method-table tr:nth-child(even) td { background: var(--bg-card); }
     .method-table tr:hover td { background: var(--teal-pale); transition: background .15s; }
-    .method-table .author { font-weight: 700; color: var(--teal-dark); }
-    .method-table .year { font-family: 'Fira Mono', monospace; font-size: .8rem; color: var(--ink-muted); }
+    .method-table .author { font-weight: 700; color: var(--teal); }
+    .method-table .year { font-family: 'Fira Mono', monospace; font-size: .8rem; color: var(--text-muted); }
 
     /* ── PHASE MODEL ── */
     .phases {
@@ -265,18 +289,19 @@
       margin: 1.4rem 0;
     }
     .phase {
-      background: var(--cream-dark);
-      border: 1px solid var(--teal);
+      background: var(--bg-card);
+      border: 1px solid var(--border-teal);
       border-radius: 6px;
       padding: .6rem 1rem;
       font-size: .88rem;
       display: flex;
       align-items: center;
       gap: .5rem;
+      color: var(--text);
     }
     .phase .ph-num {
       background: var(--teal);
-      color: #fff;
+      color: #000;
       font-family: 'Fira Mono', monospace;
       font-size: .75rem;
       padding: .15rem .4rem;
@@ -299,13 +324,18 @@
     }
     .mat-level .lv { font-family: 'Fira Mono', monospace; font-size: 1.1rem; font-weight: 700; display: block; margin-bottom: .25rem; }
     .mat-level .name { font-weight: 700; font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; }
-    .mat-level .desc { font-size: .75rem; color: var(--ink-muted); margin-top: .25rem; }
-    .mat-1 { background: #f0ebe2; border: 1px solid #ccc; }
-    .mat-2 { background: #d6eeee; border: 1px solid var(--teal-light); }
-    .mat-3 { background: #b8e4e4; border: 1px solid var(--teal); }
-    .mat-4 { background: #85cdcd; border: 1px solid var(--teal-dark); color: #fff; }
-    .mat-5 { background: var(--teal-dark); border: 1px solid #134e4e; color: #fff; }
-    .mat-4 .desc, .mat-5 .desc { color: rgba(255,255,255,.8); }
+    .mat-level .desc { font-size: .75rem; margin-top: .25rem; }
+    .mat-1 { background: #161616; border: 1px solid #333; color: var(--text-muted); }
+    .mat-1 .desc { color: #666; }
+    .mat-2 { background: #0a1f1f; border: 1px solid rgba(0,229,229,.2); color: var(--text); }
+    .mat-2 .desc { color: var(--text-muted); }
+    .mat-3 { background: #0d2b2b; border: 1px solid rgba(0,229,229,.4); color: var(--white); }
+    .mat-3 .desc { color: rgba(255,255,255,.7); }
+    .mat-4 { background: #0e3535; border: 1px solid var(--teal-dark); color: var(--teal-light); }
+    .mat-4 .desc { color: rgba(255,255,255,.75); }
+    .mat-5 { background: var(--teal); border: 1px solid var(--teal-light); color: #000; }
+    .mat-5 .lv { color: #000; }
+    .mat-5 .desc { color: rgba(0,0,0,.65); }
 
     /* ── ABSTRACT STRUCTURE ── */
     .abstract-parts {
@@ -316,13 +346,14 @@
     }
     @media (max-width: 600px) { .abstract-parts { grid-template-columns: 1fr; } }
     .abs-part {
-      background: var(--cream-dark);
+      background: var(--bg-card);
       border-top: 3px solid var(--teal);
       border-radius: 0 0 6px 6px;
       padding: .9rem 1rem;
       font-size: .9rem;
+      color: var(--text);
     }
-    .abs-part strong { display: block; color: var(--teal-dark); margin-bottom: .3rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; }
+    .abs-part strong { display: block; color: var(--teal); margin-bottom: .3rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; }
 
     /* ── CHECKLIST ── */
     .checklist { list-style: none; padding: 0; margin: 1rem 0; }
@@ -330,7 +361,7 @@
       padding: .45rem .6rem .45rem 2rem;
       position: relative;
       font-size: .93rem;
-      color: var(--ink-soft);
+      color: var(--text);
       border-bottom: 1px dashed var(--border);
     }
     .checklist li::before {
@@ -343,13 +374,204 @@
 
     /* ── FOOTER ── */
     footer {
-      background: var(--teal-dark);
-      color: rgba(255,255,255,.7);
+      background: #050505;
+      border-top: 1px solid var(--border-teal);
+      color: var(--text-muted);
       text-align: center;
       padding: 2rem 1rem;
       font-size: .85rem;
     }
-    footer strong { color: #fff; }
+    footer strong { color: var(--teal); }
+
+    /* ── INTERACTIVE CHECKLIST ── */
+    .cl-group {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem 1.5rem 1.2rem;
+      margin-bottom: 1.2rem;
+      transition: border-color .2s;
+    }
+    .cl-group:hover { border-color: var(--border-teal); }
+    .cl-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: .6rem;
+    }
+    .cl-group-header h3 { margin: 0; font-size: 1rem; color: var(--white); }
+    .cl-counter {
+      font-family: 'Fira Mono', monospace;
+      font-size: .8rem;
+      color: var(--teal);
+      background: var(--teal-pale);
+      padding: .2rem .6rem;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .cl-progress-track {
+      height: 5px;
+      background: var(--border);
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .cl-progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #c4854a, #e0a060);
+      transition: width .35s ease, background .35s ease, box-shadow .35s ease;
+      width: 0%;
+    }
+    .checklist-interactive {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .checklist-interactive li {
+      border-bottom: 1px dashed var(--border);
+    }
+    .checklist-interactive li:last-child { border-bottom: none; }
+    .checklist-interactive label {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      padding: .55rem .2rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .checklist-interactive input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .cl-box {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border-teal);
+      border-radius: 4px;
+      margin-top: .15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, border-color .2s;
+      position: relative;
+    }
+    .checklist-interactive input:checked ~ .cl-box {
+      background: var(--teal);
+      border-color: var(--teal);
+    }
+    .checklist-interactive input:checked ~ .cl-box::after {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 9px;
+      border: 2px solid #000;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg) translate(-1px, -1px);
+    }
+    .cl-text {
+      font-size: .92rem;
+      color: var(--text);
+      line-height: 1.5;
+      transition: opacity .2s, text-decoration .2s;
+    }
+    .checklist-interactive label:hover .cl-box { border-color: var(--teal); }
+
+    /* ── VIDEO CARDS ── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.4rem;
+      margin: 1.6rem 0;
+    }
+    .video-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: border-color .2s, transform .2s;
+    }
+    .video-card:hover {
+      border-color: var(--teal);
+      transform: translateY(-3px);
+    }
+    .video-thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #0d0d0d;
+    }
+    .video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity .2s;
+    }
+    .video-card:hover .video-thumb img { opacity: .85; }
+    .play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: rgba(255,255,255,.0);
+      background: rgba(0,0,0,.0);
+      transition: color .2s, background .2s;
+    }
+    .video-card:hover .play-btn {
+      color: var(--teal);
+      background: rgba(0,0,0,.35);
+    }
+    .video-thumb--placeholder {
+      background: #0d1f1a;
+      border-bottom: 1px dashed var(--border-teal);
+    }
+    .placeholder-label {
+      position: absolute;
+      bottom: .5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: .7rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      font-family: 'Fira Mono', monospace;
+    }
+    .video-info {
+      padding: 1rem 1.1rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+      flex: 1;
+    }
+    .video-tag {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+    .video-info h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: .98rem;
+      color: var(--white);
+      line-height: 1.35;
+    }
+    .video-info p {
+      font-size: .86rem;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.55;
+    }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 680px) {
@@ -374,14 +596,78 @@
   <a href="#transformation">Transformation</a>
   <a href="#reife">Reifegrad</a>
   <a href="#checklist">Checkliste</a>
+  <a href="#videos">Videos</a>
 </nav>
 
 <!-- HERO -->
 <header>
-  <div class="badge">Scientific Writing Guide</div>
+  <canvas id="blizzard"></canvas>
   <h1>How to Write a Scientific Paper<br/><em>– fast –</em></h1>
-  <p class="sub">by Leon Seelbach &nbsp;·&nbsp; Deutsch / Englisch &nbsp;·&nbsp; Struktur · Methoden · Praxis</p>
+  <p class="byline">by Leon Seelbach</p>
 </header>
+
+<script>
+(function(){
+  const canvas = document.getElementById('blizzard');
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', () => { resize(); init(); });
+
+  const COUNT = 160;
+  let particles = [];
+
+  function rand(min, max) { return Math.random() * (max - min) + min; }
+
+  function init() {
+    particles = [];
+    for (let i = 0; i < COUNT; i++) {
+      particles.push({
+        x:       rand(0, canvas.width),
+        y:       rand(-canvas.height, canvas.height),
+        r:       rand(0.6, 2.8),
+        speedX:  rand(0.4, 1.4),
+        speedY:  rand(0.3, 1.0),
+        drift:   rand(-0.15, 0.15),
+        alpha:   rand(0.08, 0.38),
+        wobble:  rand(0, Math.PI * 2),
+        wobbleSpeed: rand(0.008, 0.025),
+      });
+    }
+  }
+  init();
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.wobble += p.wobbleSpeed;
+      p.x += p.speedX + Math.sin(p.wobble) * 0.4 + p.drift;
+      p.y += p.speedY;
+
+      // wrap around
+      if (p.x > canvas.width + 4)  p.x = -4;
+      if (p.y > canvas.height + 4) p.y = -4;
+
+      // draw particle as soft circle
+      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 2.2);
+      grad.addColorStop(0,   `rgba(0,224,176,${p.alpha})`);
+      grad.addColorStop(0.5, `rgba(0,200,160,${p.alpha * 0.5})`);
+      grad.addColorStop(1,   `rgba(0,180,140,0)`);
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 2.2, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
 
 <!-- ═══════════════════════════════════════════════════════ -->
 <!-- 0. ÜBERSICHTSTABELLE -->
@@ -911,43 +1197,162 @@
 <section id="checklist">
   <div class="container">
     <h2><span class="num">10</span> Final Checklist – vor der Abgabe</h2>
-    <p>Gehe diese Liste durch, bevor du die Arbeit einreichst. Jeder Punkt ist ein häufiger Fehler.</p>
+    <p>Hake jeden Punkt ab, sobald er erledigt ist. Der Fortschrittsbalken zeigt dir, wie weit du in jedem Bereich bist.</p>
 
-    <h3>Struktur &amp; Argumentation</h3>
-    <ul class="checklist">
-      <li>Forschungsfrage klar formuliert und in Kap. 5 beantwortet</li>
-      <li>Roter Faden: Kap. 2 → Kap. 3 → Kap. 4 logisch verknüpft</li>
-      <li>Jede Handlungsempfehlung hat einen theoretischen Anker (Kap. 2)</li>
-      <li>Quantitative Belege für Problem (Kap. 3) und Wirkung (Kap. 4) vorhanden</li>
-      <li>Fazit beantwortet die Forschungsfrage explizit</li>
-    </ul>
+    <!-- GROUP 1 -->
+    <div class="cl-group" data-group="struktur">
+      <div class="cl-group-header">
+        <h3>Struktur &amp; Argumentation</h3>
+        <span class="cl-counter" id="counter-struktur">0 / 5</span>
+      </div>
+      <div class="cl-progress-track">
+        <div class="cl-progress-fill" id="bar-struktur" style="width:0%"></div>
+      </div>
+      <ul class="checklist-interactive">
+        <li data-group="struktur"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Forschungsfrage klar formuliert und in Kap. 5 beantwortet</span></label></li>
+        <li data-group="struktur"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Roter Faden: Kap. 2 → Kap. 3 → Kap. 4 logisch verknüpft</span></label></li>
+        <li data-group="struktur"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Jede Handlungsempfehlung hat einen theoretischen Anker (Kap. 2)</span></label></li>
+        <li data-group="struktur"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Quantitative Belege für Problem (Kap. 3) und Wirkung (Kap. 4) vorhanden</span></label></li>
+        <li data-group="struktur"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Fazit beantwortet die Forschungsfrage explizit</span></label></li>
+      </ul>
+    </div>
 
-    <h3>Literatur &amp; Zitation</h3>
-    <ul class="checklist">
-      <li>Recherchestrategie dokumentiert (Datenbanken, Suchbegriffe, Zeitraum)</li>
-      <li>Primärliteratur verwendet (nicht nur Sekundärquellen)</li>
-      <li>Einheitlicher Zitierstil durchgehend (APA, Harvard oder nach Vorgabe)</li>
-      <li>Alle Quellen im Literaturverzeichnis vollständig und korrekt</li>
-      <li>Keine Plagiate – alle Paraphrasierungen belegt</li>
-    </ul>
+    <!-- GROUP 2 -->
+    <div class="cl-group" data-group="literatur">
+      <div class="cl-group-header">
+        <h3>Literatur &amp; Zitation</h3>
+        <span class="cl-counter" id="counter-literatur">0 / 5</span>
+      </div>
+      <div class="cl-progress-track">
+        <div class="cl-progress-fill" id="bar-literatur" style="width:0%"></div>
+      </div>
+      <ul class="checklist-interactive">
+        <li data-group="literatur"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Recherchestrategie dokumentiert (Datenbanken, Suchbegriffe, Zeitraum)</span></label></li>
+        <li data-group="literatur"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Primärliteratur verwendet (nicht nur Sekundärquellen)</span></label></li>
+        <li data-group="literatur"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Einheitlicher Zitierstil durchgehend (APA, Harvard oder nach Vorgabe)</span></label></li>
+        <li data-group="literatur"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Alle Quellen im Literaturverzeichnis vollständig und korrekt</span></label></li>
+        <li data-group="literatur"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Keine Plagiate – alle Paraphrasierungen belegt</span></label></li>
+      </ul>
+    </div>
 
-    <h3>Abstract &amp; Formalia</h3>
-    <ul class="checklist">
-      <li>Abstract enthält: Kontext, Problem, Methode, Ergebnis, Schlussfolgerung</li>
-      <li>Abstract ≤ 250 Wörter, keine Zitate, keine Abkürzungen ohne Erklärung</li>
-      <li>Seitenzahlen, Inhaltsverzeichnis, Abbildungsverzeichnis korrekt</li>
-      <li>Sprache: konsistenter Tempus (Präsens für Theorie, Vergangenheit für empirische Befunde)</li>
-      <li>Korrekturgelesen – idealerweise von einer zweiten Person</li>
-    </ul>
+    <!-- GROUP 3 -->
+    <div class="cl-group" data-group="abstract">
+      <div class="cl-group-header">
+        <h3>Abstract &amp; Formalia</h3>
+        <span class="cl-counter" id="counter-abstract">0 / 5</span>
+      </div>
+      <div class="cl-progress-track">
+        <div class="cl-progress-fill" id="bar-abstract" style="width:0%"></div>
+      </div>
+      <ul class="checklist-interactive">
+        <li data-group="abstract"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Abstract enthält: Kontext, Problem, Methode, Ergebnis, Schlussfolgerung</span></label></li>
+        <li data-group="abstract"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Abstract ≤ 250 Wörter, keine Zitate, keine Abkürzungen ohne Erklärung</span></label></li>
+        <li data-group="abstract"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Seitenzahlen, Inhaltsverzeichnis, Abbildungsverzeichnis korrekt</span></label></li>
+        <li data-group="abstract"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Sprache: konsistenter Tempus (Präsens für Theorie, Vergangenheit für empirische Befunde)</span></label></li>
+        <li data-group="abstract"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Korrekturgelesen – idealerweise von einer zweiten Person</span></label></li>
+      </ul>
+    </div>
 
-    <h3>Wissenschaftlicher Stil</h3>
-    <ul class="checklist">
-      <li>Kein „ich" – neutrale, akademische Formulierungen</li>
-      <li>Keine umgangssprachlichen Ausdrücke</li>
-      <li>Wertende Aussagen nur, wenn begründet und belegt</li>
-      <li>Abkürzungen beim ersten Auftreten ausgeschrieben</li>
-      <li>Grafiken und Tabellen beschriftet, nummeriert und im Text referenziert</li>
-    </ul>
+    <!-- GROUP 4 -->
+    <div class="cl-group" data-group="stil">
+      <div class="cl-group-header">
+        <h3>Wissenschaftlicher Stil</h3>
+        <span class="cl-counter" id="counter-stil">0 / 5</span>
+      </div>
+      <div class="cl-progress-track">
+        <div class="cl-progress-fill" id="bar-stil" style="width:0%"></div>
+      </div>
+      <ul class="checklist-interactive">
+        <li data-group="stil"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Kein „ich" – neutrale, akademische Formulierungen</span></label></li>
+        <li data-group="stil"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Keine umgangssprachlichen Ausdrücke</span></label></li>
+        <li data-group="stil"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Wertende Aussagen nur, wenn begründet und belegt</span></label></li>
+        <li data-group="stil"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Abkürzungen beim ersten Auftreten ausgeschrieben</span></label></li>
+        <li data-group="stil"><label><input type="checkbox" /><span class="cl-box"></span><span class="cl-text">Grafiken und Tabellen beschriftet, nummeriert und im Text referenziert</span></label></li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.checklist-interactive input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const group = cb.closest('li').dataset.group;
+      const allInGroup = document.querySelectorAll(`.checklist-interactive li[data-group="${group}"] input`);
+      const checkedCount = [...allInGroup].filter(i => i.checked).length;
+      const total = allInGroup.length;
+      const pct = (checkedCount / total) * 100;
+
+      document.getElementById('bar-' + group).style.width = pct + '%';
+      document.getElementById('counter-' + group).textContent = checkedCount + ' / ' + total;
+
+      // color shift: yellow at mid, green at 100
+      const fill = document.getElementById('bar-' + group);
+      if (pct === 100) {
+        fill.style.background = 'var(--teal)';
+        fill.style.boxShadow = '0 0 10px rgba(0,224,176,.6)';
+      } else if (pct >= 60) {
+        fill.style.background = 'linear-gradient(90deg, var(--teal-dark), var(--teal))';
+        fill.style.boxShadow = 'none';
+      } else {
+        fill.style.background = 'linear-gradient(90deg, #c4854a, #e0a060)';
+        fill.style.boxShadow = 'none';
+      }
+
+      // strike through text
+      cb.closest('li').querySelector('.cl-text').style.textDecoration = cb.checked ? 'line-through' : 'none';
+      cb.closest('li').querySelector('.cl-text').style.opacity = cb.checked ? '0.4' : '1';
+    });
+  });
+</script>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- VIDEOS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="videos">
+  <div class="container">
+    <h2><span class="num">11</span> Zusatztipps – Empfohlene Videos</h2>
+    <p>Diese drei Videos ergänzen den Guide hervorragend und sind jeweils in unter 20 Minuten geschaut – hoher Nutzen, minimaler Zeitaufwand.</p>
+
+    <div class="video-grid">
+
+      <a class="video-card" href="https://www.youtube.com/watch?v=ErbciX9Hr7Q" target="_blank" rel="noopener">
+        <div class="video-thumb">
+          <img src="https://img.youtube.com/vi/ErbciX9Hr7Q/hqdefault.jpg" alt="Four types of research gaps" loading="lazy" />
+          <div class="play-btn">▶</div>
+        </div>
+        <div class="video-info">
+          <span class="video-tag">Literatur · Forschungslücken</span>
+          <h4>Four Types of Research Gaps (with Examples)</h4>
+          <p>Klar erklärt: die vier häufigsten Forschungslücken – Knowledge Gap, Evidence Gap, Methodological Gap, Practical Gap – mit konkreten Beispielen. Unverzichtbar für Kapitel 1 und 2.</p>
+        </div>
+      </a>
+
+      <a class="video-card" href="https://www.youtube.com/watch?v=IeaD0ZaUJ3Y" target="_blank" rel="noopener">
+        <div class="video-thumb">
+          <img src="https://img.youtube.com/vi/IeaD0ZaUJ3Y/hqdefault.jpg" alt="How to Read a Paper Efficiently" loading="lazy" />
+          <div class="play-btn">▶</div>
+        </div>
+        <div class="video-info">
+          <span class="video-tag">Literaturrecherche · Lektüre</span>
+          <h4>How to Read a Paper Efficiently</h4>
+          <p>Prof. Pete Carr (University of Minnesota) erklärt seinen Zwei-Phasen-Algorithmus: erst surveyen (Titel → Abstract → Fazit → Abbildungen), dann tief einsteigen. Spart bei der Literaturarbeit enorm Zeit.</p>
+        </div>
+      </a>
+
+      <a class="video-card video-card--placeholder" href="https://www.youtube.com/results?search_query=Indeed+No+Excuses+Door+New+Edit+15" target="_blank" rel="noopener">
+        <div class="video-thumb video-thumb--placeholder">
+          <div class="play-btn">▶</div>
+          <span class="placeholder-label">Link ausstehend</span>
+        </div>
+        <div class="video-info">
+          <span class="video-tag">Motivation · Mindset</span>
+          <h4>Indeed – No Excuses Door (New Edit 15)</h4>
+          <p>Motivationsvideo als Reminder: Keine Ausreden, kein Aufschub. Für die Momente, in denen das Schreiben stockt. <em>→ Bitte direkten YouTube-Link einfügen.</em></p>
+        </div>
+      </a>
+
+    </div>
   </div>
 </section>
 
