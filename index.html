@@ -493,8 +493,6 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       overflow: hidden;
-      text-decoration: none;
-      color: inherit;
       display: flex;
       flex-direction: column;
       transition: border-color .2s, transform .2s;
@@ -507,43 +505,51 @@
       position: relative;
       aspect-ratio: 16/9;
       overflow: hidden;
-      background: #0d0d0d;
+      background: #0a0a0a;
     }
-    .video-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: opacity .2s;
-    }
-    .video-card:hover .video-thumb img { opacity: .85; }
-    .play-btn {
+    /* Facade: image + play button overlay */
+    .yt-facade {
       position: absolute;
       inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
-      color: rgba(255,255,255,.0);
-      background: rgba(0,0,0,.0);
-      transition: color .2s, background .2s;
+      cursor: pointer;
     }
-    .video-card:hover .play-btn {
-      color: var(--teal);
-      background: rgba(0,0,0,.35);
+    .yt-facade img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: filter .25s;
     }
-    .video-thumb--placeholder {
+    .yt-facade:hover img { filter: brightness(.75); }
+    .yt-play {
+      position: relative;
+      z-index: 2;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      filter: drop-shadow(0 2px 12px rgba(0,0,0,.7));
+      transition: transform .2s;
+    }
+    .yt-facade:hover .yt-play { transform: scale(1.1); }
+    /* Placeholder card */
+    .yt-facade--placeholder {
       background: #0d1f1a;
-      border-bottom: 1px dashed var(--border-teal);
+      flex-direction: column;
+      gap: .5rem;
+    }
+    .placeholder-icon {
+      font-size: 2.5rem;
+      color: var(--border-teal);
     }
     .placeholder-label {
-      position: absolute;
-      bottom: .5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: .7rem;
+      font-size: .72rem;
       color: var(--text-muted);
-      white-space: nowrap;
       font-family: 'Fira Mono', monospace;
     }
     .video-info {
@@ -1316,45 +1322,78 @@
 
     <div class="video-grid">
 
-      <a class="video-card" href="https://www.youtube.com/watch?v=ErbciX9Hr7Q" target="_blank" rel="noopener">
-        <div class="video-thumb">
-          <img src="https://img.youtube.com/vi/ErbciX9Hr7Q/hqdefault.jpg" alt="Four types of research gaps" loading="lazy" />
-          <div class="play-btn">▶</div>
+      <!-- VIDEO 1 -->
+      <div class="video-card">
+        <div class="video-thumb" data-videoid="ErbciX9Hr7Q">
+          <div class="yt-facade">
+            <img src="https://i.ytimg.com/vi/ErbciX9Hr7Q/hqdefault.jpg" alt="Four types of research gaps" />
+            <button class="yt-play" aria-label="Video abspielen">
+              <svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.5 7.7A8.5 8.5 0 0 0 60.2 1C54.9 0 34 0 34 0S13.1 0 7.8 1A8.5 8.5 0 0 0 1.5 7.7C0 13 0 24 0 24s0 11 1.5 16.3A8.5 8.5 0 0 0 7.8 47C13.1 48 34 48 34 48s20.9 0 26.2-1a8.5 8.5 0 0 0 6.3-6.7C68 35 68 24 68 24s0-11-1.5-16.3z" fill="#ff0000"/><path d="M27 34l18-10-18-10v20z" fill="#fff"/></svg>
+            </button>
+          </div>
         </div>
         <div class="video-info">
           <span class="video-tag">Literatur · Forschungslücken</span>
           <h4>Four Types of Research Gaps (with Examples)</h4>
-          <p>Klar erklärt: die vier häufigsten Forschungslücken – Knowledge Gap, Evidence Gap, Methodological Gap, Practical Gap – mit konkreten Beispielen. Unverzichtbar für Kapitel 1 und 2.</p>
+          <p>Die vier häufigsten Forschungslücken – Knowledge, Evidence, Methodological, Practical Gap – mit konkreten Beispielen. Unverzichtbar für Kapitel 1 und 2.</p>
         </div>
-      </a>
+      </div>
 
-      <a class="video-card" href="https://www.youtube.com/watch?v=IeaD0ZaUJ3Y" target="_blank" rel="noopener">
-        <div class="video-thumb">
-          <img src="https://img.youtube.com/vi/IeaD0ZaUJ3Y/hqdefault.jpg" alt="How to Read a Paper Efficiently" loading="lazy" />
-          <div class="play-btn">▶</div>
+      <!-- VIDEO 2 -->
+      <div class="video-card">
+        <div class="video-thumb" data-videoid="IeaD0ZaUJ3Y">
+          <div class="yt-facade">
+            <img src="https://i.ytimg.com/vi/IeaD0ZaUJ3Y/hqdefault.jpg" alt="How to Read a Paper Efficiently" />
+            <button class="yt-play" aria-label="Video abspielen">
+              <svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.5 7.7A8.5 8.5 0 0 0 60.2 1C54.9 0 34 0 34 0S13.1 0 7.8 1A8.5 8.5 0 0 0 1.5 7.7C0 13 0 24 0 24s0 11 1.5 16.3A8.5 8.5 0 0 0 7.8 47C13.1 48 34 48 34 48s20.9 0 26.2-1a8.5 8.5 0 0 0 6.3-6.7C68 35 68 24 68 24s0-11-1.5-16.3z" fill="#ff0000"/><path d="M27 34l18-10-18-10v20z" fill="#fff"/></svg>
+            </button>
+          </div>
         </div>
         <div class="video-info">
           <span class="video-tag">Literaturrecherche · Lektüre</span>
           <h4>How to Read a Paper Efficiently</h4>
-          <p>Prof. Pete Carr (University of Minnesota) erklärt seinen Zwei-Phasen-Algorithmus: erst surveyen (Titel → Abstract → Fazit → Abbildungen), dann tief einsteigen. Spart bei der Literaturarbeit enorm Zeit.</p>
+          <p>Prof. Pete Carr erklärt seinen Zwei-Phasen-Algorithmus: erst surveyen (Titel → Abstract → Fazit → Abbildungen), dann tief einsteigen. Spart enorm Zeit.</p>
         </div>
-      </a>
+      </div>
 
-      <a class="video-card video-card--placeholder" href="https://www.youtube.com/results?search_query=Indeed+No+Excuses+Door+New+Edit+15" target="_blank" rel="noopener">
-        <div class="video-thumb video-thumb--placeholder">
-          <div class="play-btn">▶</div>
-          <span class="placeholder-label">Link ausstehend</span>
+      <!-- VIDEO 3 – Literature Review FAST -->
+      <div class="video-card">
+        <div class="video-thumb" data-videoid="7JMllEeikQQ">
+          <div class="yt-facade">
+            <img src="https://i.ytimg.com/vi/7JMllEeikQQ/hqdefault.jpg" alt="How to write a literature review FAST" />
+            <button class="yt-play" aria-label="Video abspielen">
+              <svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.5 7.7A8.5 8.5 0 0 0 60.2 1C54.9 0 34 0 34 0S13.1 0 7.8 1A8.5 8.5 0 0 0 1.5 7.7C0 13 0 24 0 24s0 11 1.5 16.3A8.5 8.5 0 0 0 7.8 47C13.1 48 34 48 34 48s20.9 0 26.2-1a8.5 8.5 0 0 0 6.3-6.7C68 35 68 24 68 24s0-11-1.5-16.3z" fill="#ff0000"/><path d="M27 34l18-10-18-10v20z" fill="#fff"/></svg>
+            </button>
+          </div>
         </div>
         <div class="video-info">
-          <span class="video-tag">Motivation · Mindset</span>
-          <h4>Indeed – No Excuses Door (New Edit 15)</h4>
-          <p>Motivationsvideo als Reminder: Keine Ausreden, kein Aufschub. Für die Momente, in denen das Schreiben stockt. <em>→ Bitte direkten YouTube-Link einfügen.</em></p>
+          <span class="video-tag">Literaturrecherche · Schreiben</span>
+          <h4>How to Write a Literature Review FAST</h4>
+          <p>Ein 6-schrittiges Scaffold-Template von Dr. Amina: Brainstorming → Quellen → Einengen → Mind Map → Outline → Schreiben. Ideal für Kapitel 2.</p>
         </div>
-      </a>
+      </div>
+
+
 
     </div>
   </div>
 </section>
+
+<script>
+  // Click-to-load YouTube iframes (Facade pattern – kein Tracking bis zum Klick)
+  document.querySelectorAll('.video-thumb[data-videoid]').forEach(thumb => {
+    thumb.querySelector('.yt-play').addEventListener('click', () => {
+      const id = thumb.dataset.videoid;
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;border-radius:10px 10px 0 0;';
+      thumb.innerHTML = '';
+      thumb.appendChild(iframe);
+    });
+  });
+</script>
 
 <!-- ═══════════════════════════════════════════════════════ -->
 <!-- FOOTER -->
